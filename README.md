@@ -7,7 +7,7 @@ Basics
 
 For reference, see http://www.ics.uci.edu/~alspaugh/cls/shr/allen.html
 
-Only one of the 13 logical states can be true for any two given intervals. 
+Only one of the 13 logical states can be true for any two given intervals. (Just like only one of A>B, A<B and A==B can hold for two numbers A and B)
 
 Any pair of intervals are described by exactly one of these states.
 
