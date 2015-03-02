@@ -61,11 +61,11 @@ elif X.startedBy(Y)
 
 elif X.overlappedBy(Y)
 
-	ask user if Y can be preponed by Y.ub-X.lb (or vice versa postponement for X)
+	ask user if Y can be advanced by Y.ub-X.lb (or vice versa postponement for X)
 
 elif X.metBy(Y)
 
-	X starts exactly aftr Y
+	X starts exactly after Y
 
 elif X.after(Y)
 
