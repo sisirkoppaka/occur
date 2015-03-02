@@ -1,5 +1,5 @@
 # Occur
-Scala implementation of Allen's Interval Logic
+Scala implementation of Allen's Interval Algebra
 
 
 Basics
