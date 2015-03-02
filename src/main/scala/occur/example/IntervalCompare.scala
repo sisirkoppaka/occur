@@ -24,10 +24,10 @@ trait AllenAlgebra {
 class IntervalOccur(s: Double, e: Double) extends AllenAlgebra {
 
   val lb = s
-  val ub = s
+  val ub = e
 
   override def before(obj: IntervalOccur): Boolean =
-    ub < obj.lb
+    (ub < obj.lb) && (lb < obj.lb)
 
   override def meets(obj: IntervalOccur): Boolean =
     (lb < obj.lb) && (ub == obj.ub)
@@ -70,7 +70,7 @@ object IntervalCompare extends App {
   override def main(args: Array[String]) {
 
     val i = new IntervalOccur(3, 5)
-    val j = new IntervalOccur(4, 5)
+    val j = new IntervalOccur(4.5, 6)
 
     println(i.before(j))
     println(i.meets(j))
