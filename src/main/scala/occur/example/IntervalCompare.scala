@@ -1,8 +1,5 @@
 package occur.example
 
-import spire.math.{Interval}
-import spire.implicits._
-
 
 /**
  * Created by sisir on 3/2/15.
@@ -25,54 +22,48 @@ trait AllenAlgebra {
 }
 
 class IntervalOccur(s: Double, e: Double) extends AllenAlgebra {
-  //var i: Interval[Double] =  Interval[Double](s, e) {override def upperBound: Bound[Double] = e
 
-  //  override def lowerBound: Bound[Double] = s
-  //}
-
-  val i = Interval(s: Double, e: Double)
-  val i_lb = i.lowerBound.asInstanceOf[Double]
-  val i_ub = i.upperBound.asInstanceOf[Double]
+  val lb = s
+  val ub = s
 
   override def before(obj: IntervalOccur): Boolean =
-    //i.lowerBound.toDouble() < obj.i.lowerBound.toDouble()
-    i.upperBound.asInstanceOf[Double] < obj.i.lowerBound.asInstanceOf[Double]
+    ub < obj.lb
 
   override def meets(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] < obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] == obj.i.upperBound.asInstanceOf[Double])
+    (lb < obj.lb) && (ub == obj.ub)
 
   override def overlaps(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] < obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] > obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] < obj.i.upperBound.asInstanceOf[Double])
+    (lb < obj.lb) && (ub > obj.lb) && (ub < obj.ub)
 
   override def starts(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] == obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] < obj.i.upperBound.asInstanceOf[Double])
+    (lb == obj.lb) && (ub < obj.ub)
 
   override def during(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] > obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] < obj.i.upperBound.asInstanceOf[Double])
+    (lb > obj.lb) && (ub < obj.ub)
 
   override def finishes(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] > obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] == obj.i.upperBound.asInstanceOf[Double])
+    (lb > obj.lb) && (ub == obj.ub)
 
   override def equals(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] == obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] == obj.i.upperBound.asInstanceOf[Double])
+    (lb == obj.lb) && (ub == obj.ub)
 
   override def finishedBy(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] < obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] == obj.i.upperBound.asInstanceOf[Double])
+    (lb < obj.lb) && (ub == obj.ub)
 
   override def includes(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] < obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] > obj.i.upperBound.asInstanceOf[Double])
+    (lb < obj.lb) && (ub > obj.ub)
 
   override def startedBy(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] == obj.i.lowerBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] > obj.i.upperBound.asInstanceOf[Double])
+    (lb == obj.lb) && (ub > obj.ub)
 
   override def overlappedBy(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] > obj.i.lowerBound.asInstanceOf[Double]) && (i.lowerBound.asInstanceOf[Double] < obj.i.upperBound.asInstanceOf[Double]) && (i.upperBound.asInstanceOf[Double] > obj.i.upperBound.asInstanceOf[Double])
+    (lb > obj.lb) && (lb < obj.ub) && (ub > obj.ub)
 
   override def metBy(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] > obj.i.lowerBound.asInstanceOf[Double]) && (i.lowerBound.asInstanceOf[Double] == obj.i.upperBound.asInstanceOf[Double])
+    (lb > obj.lb) && (lb == obj.ub)
 
   override def after(obj: IntervalOccur): Boolean =
-    (i.lowerBound.asInstanceOf[Double] > obj.i.upperBound.asInstanceOf[Double])
+    (lb > obj.ub)
 }
 
 object IntervalCompare extends App {
@@ -82,5 +73,20 @@ object IntervalCompare extends App {
     val j = new IntervalOccur(4, 5)
 
     println(i.before(j))
+    println(i.meets(j))
+    println(i.overlaps(j))
+    println(i.starts(j))
+    println(i.during(j))
+    println(i.finishes(j))
+    println(i.equals(j))
+    println(i.finishedBy(j))
+    println(i.includes(j))
+    println(i.startedBy(j))
+    println(i.overlappedBy(j))
+    println(i.metBy(j))
+    println(i.after(j))
+
+    println("Only one of the above 13 Allen Interval Logical states should be true.")
+
   }
 }
